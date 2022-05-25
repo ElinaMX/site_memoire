@@ -1,0 +1,7 @@
+# Journal de bord
+
+## AVRIL
+Mise en place de la base de donnée
+
+## MAI
+Reprise des scripts et 

@@ -1,0 +1,24 @@
+project:
+  type: website
+
+jupyter: python3
+
+website:
+  title: "Gestion d'une base de données qualitative te géométrique"
+  navbar:
+    background: primary
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - intro.qmd
+      - part1.qmd
+      - journal.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual

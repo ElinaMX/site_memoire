@@ -1,0 +1,93 @@
+# Introduction
+
+R table
+
+```{r}
+#| echo: true
+data <- data.frame(year =  c("1958", "1959", "1960"), 
+                   max = c(310, 275, 380))
+
+
+ojs_define(data)
+library(quarto)
+data
+```
+
+`OJS` line_chart from tutorial with `ojs_define()` and `R` table
+
+```{ojs}
+tableR = data
+tableOjs = transpose(tableR)
+
+tableOjs
+
+yearlyChart = Plot.plot({
+  marks: [
+    Plot.line(tableOjs, 
+              {x: "year", y: "max"}, 
+              { stroke: "red" }
+    ),
+    Plot.ruleY([0])
+  ],
+  caption: html`<em>FIG.</em> This is a line chart stating at 0`
+}
+)
+```
+
+Second bar chart 
+
+```{ojs}
+
+Plot.rectY(tableOjs, Plot.binX({y: "max"}, {x: "year"})).plot()
+```
+Third  bar chart with table
+
+```{ojs}
+Plot.plot({
+  marks: [
+    Plot.barY(tableOjs, {x: "year", y: "max", fill: "steelblue"}),
+    Plot.ruleY([0])
+  ],
+  caption: html`Figure 1. This chart has a <i>fancy</i> caption.`
+})
+```
+
+## With Python
+
+`Python` table
+
+```{python}
+#| eval = FALSE
+
+import pandas as pd
+
+dataInit = {
+    'year': ['1958', '1959', '1960'],
+
+    'max': [205, 250, 320.7]
+}
+
+df = pd.DataFrame(data = dataInit)
+dataInit
+df
+ojs_define(tablePy = dataInit)
+
+```
+
+```{ojs}
+
+tablePy = data
+tablePyOjs = transpose(tablePy)
+
+tablePyOjs
+
+Plot.plot({
+  marks: [
+    Plot.barY(tablePyOjs, {x: "year", y: "max", fill: "steelblue"}),
+    Plot.ruleY([0])
+  ],
+  caption: html`Figure 1. This chart has a <i>fancy</i> caption.`
+})
+```
+
+  
