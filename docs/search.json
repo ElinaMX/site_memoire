@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Gestion d’une base de données qualitative te géométrique",
+    "section": "",
+    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "Gestion d'une base de données qualitative te géométrique",
+    "section": "",
+    "text": "R table\n\ndata <- data.frame(year =  c(\"1958\", \"1959\", \"1960\"), \n                   max = c(310, 275, 380))\n\n\nojs_define(data)\nlibrary(quarto)\n\nWarning: le package 'quarto' a été compilé avec la version R 4.1.3\n\ndata\n\n  year max\n1 1958 310\n2 1959 275\n3 1960 380\n\n\nOJS line_chart from tutorial with ojs_define() and R table\n\ntableR = data\ntableOjs = transpose(tableR)\n\ntableOjs\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nyearlyChart = Plot.plot({\n  marks: [\n    Plot.line(tableOjs, \n              {x: \"year\", y: \"max\"}, \n              { stroke: \"red\" }\n    ),\n    Plot.ruleY([0])\n  ],\n  caption: html`<em>FIG.</em> This is a line chart stating at 0`\n}\n)\n\n\n\n\n\n\n\n\nSecond bar chart\n\n\nPlot.rectY(tableOjs, Plot.binX({y: \"max\"}, {x: \"year\"})).plot()\n\n\n\n\n\n\nThird bar chart with table\n\nPlot.plot({\n  marks: [\n    Plot.barY(tableOjs, {x: \"year\", y: \"max\", fill: \"steelblue\"}),\n    Plot.ruleY([0])\n  ],\n  caption: html`Figure 1. This chart has a <i>fancy</i> caption.`\n})\n\n\n\n\n\n\n\n\nPython table\n\nimport pandas as pd\n\ndataInit = {\n    'year': ['1958', '1959', '1960'],\n\n    'max': [205, 250, 320.7]\n}\n\ndf = pd.DataFrame(data = dataInit)\ndataInit\ndf\nojs_define(tablePy = dataInit)\n\n\ntablePy = data\ntablePyOjs = transpose(tablePy)\n\ntablePyOjs\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlot.plot({\n  marks: [\n    Plot.barY(tablePyOjs, {x: \"year\", y: \"max\", fill: \"steelblue\"}),\n    Plot.ruleY([0])\n  ],\n  caption: html`Figure 1. This chart has a <i>fancy</i> caption.`\n})"
+  },
+  {
+    "objectID": "journal.html",
+    "href": "journal.html",
+    "title": "Gestion d'une base de données qualitative te géométrique",
+    "section": "",
+    "text": "Mise en place de la base de donnée\n\n\n\nReprise des scripts et"
+  },
+  {
+    "objectID": "observable.html",
+    "href": "observable.html",
+    "title": "Untitled",
+    "section": "",
+    "text": "This Quarto document is made interactive using Observable JS. Interactive documents allow readers to modify parameters and see the results immediately. Learn more about OJS interactive documents at https://quarto.org/docs/interactive/ojs/."
+  },
+  {
+    "objectID": "observable.html#bubble-chart",
+    "href": "observable.html#bubble-chart",
+    "title": "Untitled",
+    "section": "Bubble Chart",
+    "text": "Bubble Chart\nThis example uses a D3 bubble chart imported from Observable HQ to analyze commits to GitHub repositories.\nSelect a repository to analyze the commits of:\n\nviewof repo = Inputs.radio(\n  [\n    \"pandas-dev/pandas\",\n    \"tidyverse/ggplot2\",\n  ], \n  { label: \"Repository:\", value: \"pandas-dev/pandas\"}\n)\n\n\n\n\n\n\nFetch the commits for the specified repo using the GitHub API:\n\nd3 = require('d3')\ncontributors = await d3.json(\n  \"https://api.github.com/repos/\" + repo + \"/stats/contributors\"\n)\ncommits = contributors.map(contributor => {\n  const author = contributor.author;\n  return {\n    name: author.login,\n    title: author.login,\n    group: author.type,\n    value: contributor.total\n  }\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote that the repo variable is bound dynamically from the radio input defined above. If you change the input the contributors query will be automatically re-executed.\nView the commits sorted by most to least:\n\nInputs.table(commits, { sort: \"value\", reverse: true })\n\n\n\n\n\n\nVisualize using a D3 bubble chart imported from Observable HQ:\n\nimport { chart } with { commits as data } \n  from \"@d3/d3-bubble-chart\"\nchart"
+  },
+  {
+    "objectID": "part1.html",
+    "href": "part1.html",
+    "title": "Gestion d'une base de données qualitative te géométrique",
+    "section": "",
+    "text": "A simple example based on Allison Horst’s Palmer Penguins dataset. Here we look at how penguin body mass varies across both sex and species (use the provided inputs to filter the dataset by bill length and island):\n\ndata = FileAttachment(\"data/palmer-penguins.csv\").csv({ typed: true })\n\n\n\n\n\n\n\nviewof bill_length_mm = Inputs.range(\n  [32, 50], \n  {value: 35, step: 1, label: \"Bill length (min):\"}\n)\nviewof islands = Inputs.checkbox(\n  [\"Torgersen\", \"Biscoe\", \"Dream\"], \n  { value: [\"Torgersen\", \"Biscoe\"], \n    label: \"Islands:\"\n  }\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfiltered = data.filter(function(penguin) {\n  return bill_length_mm < penguin.bill_length_mm &&\n         islands.includes(penguin.island);\n})\n\n\n\n\n\n\n\n\n\n\nPlot.rectY(filtered, \n  Plot.binX(\n    {y: \"count\"}, \n    {x: \"body_mass_g\", fill: \"species\", thresholds: 20}\n  ))\n  .plot({\n    facet: {\n      data: filtered,\n      x: \"sex\",\n      y: \"species\",\n      marginRight: 80\n    },\n    marks: [\n      Plot.frame(),\n    ]\n  }\n)\n\n\n\n\n\nFigure 1: Penguin body mass by sex and species\n\n\n\n\n\n\nThe penguins data from the palmerpenguins package contains size measurements for 344 penguins from three species observed on three islands in the Palmer Archipelago, Antarctica./ The plot below shows the relationship between flipper and bill lengths of these penguins."
+  }
+]

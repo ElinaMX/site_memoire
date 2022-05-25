@@ -15,6 +15,7 @@ website:
       - about.qmd
       - intro.qmd
       - part1.qmd
+      - observable.qmd
       - journal.qmd
 
 format:
